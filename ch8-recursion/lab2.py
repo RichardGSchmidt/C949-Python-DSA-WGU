@@ -15,12 +15,14 @@
 #   Mia, Julia, Lucas
 #   Mia, Lucas, Julia
 
+# Solution:
+
 def print_all_permutations(permList, nameList):
     # Varible Declaration block.
     nameCopy = nameList[:]
     permCopy = permList[:]
     
-    # base case
+    # base case, prints the list
     if (len(nameCopy)==0):
         #string builder function
         out_str = ''
@@ -31,11 +33,12 @@ def print_all_permutations(permList, nameList):
                 out_str += f', {permCopy[i]}'
         print(f'{out_str}')
     
-    # recursive case
+    # recursive case, itterates through the list making recursive calls
+    #   until the base case is reached (len(nameCopy)==0)
     else:
         for i, name in enumerate(nameCopy):
-            # extra copies here to avoid pass by reference issues
-            # as the list itterates
+            # extra copies declared / reset here to avoid altering the list
+            #   for the next itteration of the loop
             nameOut = nameCopy[:]
             permOut = permCopy[:]
 
@@ -47,7 +50,8 @@ def print_all_permutations(permList, nameList):
             
             # recursive call
             print_all_permutations(permOut, nameOut)
-    
+# End solution
+
 if __name__ == "__main__": 
     nameList = input().split(' ')
     permList = []

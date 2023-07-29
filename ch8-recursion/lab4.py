@@ -37,17 +37,17 @@
 
 def draw_triangle(base_len):
 
-    # base case
+    # base case draws the tip of the triangle
     if base_len == 1:
         print (" " * 9 + '*')
         
-    #recursive case
+    # recursive case
     else:
         
-        #recursive call (we want the tip drawn first)
+        # recursive call (we want the tip drawn first)
         draw_triangle(int(base_len - 2))
         
-        #printing script (not casting as int breaks this)
+        # printing script (not casting as int breaks this)
         print (" " * (9 - int(base_len)//2) + '*' * int(base_len))
 
 # End solution

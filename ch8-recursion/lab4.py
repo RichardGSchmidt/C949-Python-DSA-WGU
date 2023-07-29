@@ -1,57 +1,30 @@
-#    8.11 LAB: Drawing a right side up triangle
+#    8.10 LAB: Count the digits
 #   
-#   Write a recursive function called draw_triangle() that outputs lines of '*' to form a right side up isosceles triangle. Function draw_triangle() has one parameter, an integer representing the base length of the triangle. Assume the base length is always odd and less than 20. Output 9 spaces before the first '*' on the first line for correct formatting.
+#   Write a recursive function called digit_count() that takes a positive integer as a parameter and returns the number of digits in the integer. Hint: The number of digits increases by 1 whenever the input number is divided by 10.
 #   
-#   Hint: The number of '*' increases by 2 for every line drawn.
+#   Ex: If the input is:
 #   
-#   Ex: If the input of the program is:
+#   345
+#   
+#   the function digit_count() returns and the program outputs:
 #   
 #   3
-#   
-#   the function draw_triangle() outputs:
-#   
-#            *
-#           ***
-#   
-#   Ex: If the input of the program is:
-#   
-#   19
-#   
-#   the function draw_triangle() outputs:
-#   
-#            *
-#           ***
-#          *****
-#         *******
-#        *********
-#       ***********
-#      *************
-#     ***************
-#    *****************
-#   *******************
-#   
-#   Note: No space is output before the first '*' on the last line when the base length is 19.
-#   
 
 # Solution:
-
-def draw_triangle(base_len):
-
-    # base case draws the tip of the triangle
-    if base_len == 1:
-        print (" " * 9 + '*')
-        
+def digit_count(num, count=0):
+    
+    # base case
+    if (count == 0 and num == 0):
+        return 1
+    if num == 0:
+        return count
+    
     # recursive case
     else:
-        
-        # recursive call (we want the tip drawn first)
-        draw_triangle(int(base_len - 2))
-        
-        # printing script (not casting as int breaks this)
-        print (" " * (9 - int(base_len)//2) + '*' * int(base_len))
-
+        return digit_count(num//10, count+1)
 # End solution
 
 if __name__ == '__main__':
-    base_length = int(input())
-    draw_triangle(base_length)
+    num = int(input())
+    digit = digit_count(num)
+    print(digit)

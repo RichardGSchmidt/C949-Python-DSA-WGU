@@ -1,66 +1,57 @@
-#    8.12 LAB: Output a linked list
+#    8.11 LAB: Drawing a right side up triangle
 #   
-#   Write a recursive function called print_list() that outputs the integer value of each node in a linked list. Function print_list() has one parameter, the head node of a list. The main program reads the size of the linked list, followed by the values in the list. Assume the linked list has at least 1 node.
+#   Write a recursive function called draw_triangle() that outputs lines of '*' to form a right side up isosceles triangle. Function draw_triangle() has one parameter, an integer representing the base length of the triangle. Assume the base length is always odd and less than 20. Output 9 spaces before the first '*' on the first line for correct formatting.
+#   
+#   Hint: The number of '*' increases by 2 for every line drawn.
 #   
 #   Ex: If the input of the program is:
 #   
-#   5
-#   1
-#   2
 #   3
-#   4
-#   5
 #   
-#   the output of the print_list() function is:
+#   the function draw_triangle() outputs:
 #   
-#   1, 2, 3, 4, 5,
+#            *
+#           ***
 #   
-#   Hint: Output the value of the current node, then call the print_list() function repeatedly until the end of the list is reached. Refer to the Node class to explore any available instance methods that can be used for implementing the print_list() function.
-
-class Node:
-    def __init__(self, value):
-        self.data_val = value
-        self.next_node = None
-
-    def insert_after(self, node):
-        tmp_node = self.next_node
-        self.next_node = node
-        node.next_node = tmp_node
-
-    def get_next(self):
-        return self.next_node
-
-    def print_data(self):
-        print(self.data_val, end=", ")
+#   Ex: If the input of the program is:
+#   
+#   19
+#   
+#   the function draw_triangle() outputs:
+#   
+#            *
+#           ***
+#          *****
+#         *******
+#        *********
+#       ***********
+#      *************
+#     ***************
+#    *****************
+#   *******************
+#   
+#   Note: No space is output before the first '*' on the last line when the base length is 19.
+#   
 
 # Solution:
-def print_list(head_node, current_node=None):
-    
-    # initial setup for current node on first call
-    if current_node == None:
-        current_node = head_node
+
+def draw_triangle(base_len):
+
+    # base case draws the tip of the triangle
+    if base_len == 1:
+        print (" " * 9 + '*')
         
-    # base case, if we're out of nodes
-    if (current_node.get_next() == None):
-        current_node.print_data()
-            
     # recursive case
     else:
-        current_node.print_data()
-        print_list(head_node, current_node.get_next())
-# End Solution
+        
+        # recursive call (we want the tip drawn first)
+        draw_triangle(int(base_len - 2))
+        
+        # printing script (not casting as int breaks this)
+        print (" " * (9 - int(base_len)//2) + '*' * int(base_len))
 
-if __name__ == "__main__":
-    size = int(input())
-    value = int(input())
-    head_node = Node(value) # Make head node as the first node
-    last_node = head_node
-    
-    # Insert the second and the rest of the nodes
-    for n in range(1, size):
-        value = int(input())
-        new_node = Node(value)
-        last_node.insert_after(new_node)
-        last_node = new_node
-    
-    print_list(head_node)
+# End solution
+
+if __name__ == '__main__':
+    base_length = int(input())
+    draw_triangle(base_length)

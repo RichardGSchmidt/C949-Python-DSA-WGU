@@ -27,7 +27,10 @@ def print_num_pattern(num1, num2):
     else:
         #print statement for numbers going down
         print(num1, end=' ')
+
+        # recursive call
         print_num_pattern(num1-num2, num2)
+
         #print statement for numbers coming back up
         print(num1, end=' ')
 # End solution

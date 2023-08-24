@@ -16,39 +16,39 @@ class SortedNumberList:
     # Removes the node with the specified number value from the list. Returns
     # True if the node is found and removed, False otherwise.
     def remove(self, number):
-        # Calls remove on searched key, returns false if key not found, returns true and modifies the list if key is found
+        # Calls remove on searched key, returns false if key not found, and returns true and modifies the list if the key is found
         return self.remove_at(self.find_equal_node(number))
     
     # Helper Functions
     
     # remove at target node helper function
-    def remove_at(self, target_node):
+    def remove_at(self, node_to_remove):
         
-        # Returns false and does nothing if no target node given
-        if target_node == None:
+        # Returns False, as there was no term provided and nothing was removed
+        if node_to_remove == None:
             return False
-
-        # Get the next and previous nodes
-        previous = target_node.get_previous()
-        next = target_node.get_next()
         
+        # Get the next and previous nodes belonging to the node to be removed
+        previous = node_to_remove.get_previous()
+        next = node_to_remove.get_next()
+
         # if next isn't null connect it's previous value to the previous node
         if next is not None:
-            next.set_previous(previous)
+            next.set_previous(previous)        
         
         # if previous isn't null set it's next value to the next node
         if previous is not None:
-            previous.set_next(next)
+            previous.set_next(next)        
         
-        # if the node is the head, set the next node to the next node
-        if target_node is self.head:
-            self.head = next
+        # if the node to be removed is the head, set the head to the next node
+        if node_to_remove is self.head:
+            self.head = next        
         
         # if the node is the tail, set the tail to the previous node
-        if target_node is self.tail:
+        if node_to_remove is self.tail:
             self.tail = previous
         
-        #returns true as the node was found
+        # returns true as the node was found and removed
         return True
 
     # Equal node finder helper function

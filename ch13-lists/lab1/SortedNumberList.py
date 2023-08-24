@@ -18,7 +18,6 @@ class SortedNumberList:
     # Removes the node with the specified number value from the list. Returns
     # True if the node is found and removed, False otherwise.
     def remove(self, number):
-    
         # Calls remove on searched key, returns false if key not found, returns true and modifies the list if key is found
         return self.remove_at(self.find_equal_node(number))
     

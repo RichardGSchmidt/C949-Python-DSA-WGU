@@ -6,14 +6,12 @@ class SortedNumberList:
         self.tail = None
 
 #Solution:
+
     # Inserts the number into the list in the correct position such that the
     # list remains sorted in ascending order.
     def insert(self, number):
         # Inserts a node with the value after the last smaller node, if no target can be found the insert function prepends the list
         self.insert_after(Node(number), self.find_last_smaller(number)) 
-
-            
-
 
     # Removes the node with the specified number value from the list. Returns
     # True if the node is found and removed, False otherwise.
@@ -21,7 +19,7 @@ class SortedNumberList:
         # Calls remove on searched key, returns false if key not found, returns true and modifies the list if key is found
         return self.remove_at(self.find_equal_node(number))
     
-    # helper functions
+    # Helper Functions
     
     # remove at target node helper function
     def remove_at(self, target_node):

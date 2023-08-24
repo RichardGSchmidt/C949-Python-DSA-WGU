@@ -61,7 +61,7 @@ class SortedNumberList:
             current_node = current_node.get_next()
         return None
     
-    # Returns the last Node Smaller than a key value or None if all are greater
+    # Returns the last Node Smaller than a key value or None if none are smaller
     def find_last_smaller(self, key):
         current_node = self.head
         smallest = None
@@ -70,7 +70,7 @@ class SortedNumberList:
             current_node = current_node.get_next()
         return smallest
        
-    #prepend helper function
+    # prepend helper function
     def prepend(self, new_node):
         if self.head is None:
             self.head = new_node
@@ -80,7 +80,7 @@ class SortedNumberList:
             self.head.set_previous(new_node)
             self.head = new_node
     
-    # insert after helper function
+    # slightly modified insert after helper function
     def insert_after(self, new_node, target_node):
         
         # If no target node is specified the list is prepended, this covers both the case of the list being empty and the case that no nodes are smaller than the new node

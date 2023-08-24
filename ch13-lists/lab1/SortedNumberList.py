@@ -3,24 +3,14 @@ from Node import Node
 class SortedNumberList:
     def __init__(self,):
         self.head = None
-        self.tail = None    
+        self.tail = None
 
-# Solution:
-
+#Solution:
     # Inserts the number into the list in the correct position such that the
     # list remains sorted in ascending order.
     def insert(self, number):
-        
-        # Finds the last node smaller than number
-        last_smaller = self.find_last_smaller(number)
-        
-        # If nothing is smaller, prepend the new node, this also covers the event the list is empty
-        if last_smaller is None:
-            self.prepend(Node(number))
-            
-        # Otherwise insert the new node after the last smaller node
-        else:
-            self.insert_after(Node(number), last_smaller) 
+        # Inserts a node with the value after the last smaller node, if there are no smaller nodes the insert function prepends the list
+        self.insert_after(Node(number), self.find_last_smaller(number)) 
 
             
 
@@ -28,26 +18,19 @@ class SortedNumberList:
     # Removes the node with the specified number value from the list. Returns
     # True if the node is found and removed, False otherwise.
     def remove(self, number):
-        
-        # Finds first node matching key value is in list
-        node_to_remove = self.find_equal_node(number)
-        
-        # If the node isn't found False is returned
-        if node_to_remove == None:
-            return False
-            
-        # Otherwise the found node is removed 
-        else:
-            self.remove_at(node_to_remove)
-            return True
-
-        
-
-    # helper methods
+    
+        # Calls remove on searched key, returns false if key not found, returns true and modifies the list if key is found
+        return self.remove_at(self.find_equal_node(number))
+    
+    # helper functions
     
     # remove at target node helper function
     def remove_at(self, target_node):
         
+        # Returns false and does nothing if no target node given
+        if target_node == None:
+            return False
+
         # Get the next and previous nodes
         previous = target_node.get_previous()
         next = target_node.get_next()
@@ -67,6 +50,9 @@ class SortedNumberList:
         # if the node is the tail, set the tail to the previous node
         if target_node is self.tail:
             self.tail = previous
+        
+        #returns true as the node was found
+        return True
 
     # Equal node finder helper function
     # Returns the first equal node or None if nothing is found
@@ -89,24 +75,34 @@ class SortedNumberList:
         return smallest
        
     #prepend helper function
-    def prepend(self, newNode):
-        if self.head is None:
-            self.head = newNode
-            self.tail = newNode
-        else:
-            newNode.next = self.head
-            self.head.previous = newNode
-            self.head = newNode
-    
-    # insert after helper function
-    def insert_after(self, new_node, target_node):
+    def prepend(self, new_node):
         if self.head is None:
             self.head = new_node
             self.tail = new_node
+        else:
+            new_node.set_next(self.head)
+            self.head.set_previous(new_node)
+            self.head = new_node
+    
+    # insert after helper function
+    def insert_after(self, new_node, target_node):
+        
+        # If the list is empty, add the new node
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        
+        # If no target node is selected the list is prepended to account for calls where no smaller nodes are found
+        elif target_node is None:
+            self.prepend(new_node)
+            
+        # if the target is the tail connect the node and make it the new tail
         elif target_node is self.tail:
             self.tail.set_next(new_node)
             new_node.set_previous(self.tail)
             self.tail = new_node
+        
+        # otherwise connect the new node between the target and it's successor node
         else:
             successor_node = target_node.get_next()
             new_node.set_next(successor_node)

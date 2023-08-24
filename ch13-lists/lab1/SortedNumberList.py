@@ -57,7 +57,7 @@ class SortedNumberList:
     # Returns the first equal node or None if nothing is found
     def find_equal_node(self, key):
         current_node = self.head
-        while(current_node != None):
+        while(current_node != None and current_node.data <= key):
             if current_node.data == key:
                 return current_node
             current_node = current_node.next
@@ -67,9 +67,8 @@ class SortedNumberList:
     def find_last_smaller(self, key):
         current_node = self.head
         smallest = None
-        while(current_node != None):
-            if current_node.data < key:
-                smallest = current_node
+        while(current_node != None and current_node.data < key):
+            smallest = current_node
             current_node = current_node.next
         return smallest
        

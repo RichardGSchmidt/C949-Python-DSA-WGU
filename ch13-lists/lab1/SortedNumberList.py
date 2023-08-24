@@ -11,13 +11,13 @@ class SortedNumberList:
     # list remains sorted in ascending order.
     def insert(self, number):
         # Inserts a node with the value after the last smaller node, if no target can be found the insert function prepends the list
-        self.insert_after(Node(number), self.find_last_smaller(number)) 
+        self.insert_after(Node(number), self.find_last_smaller(number, self.head)) 
 
     # Removes the node with the specified number value from the list. Returns
     # True if the node is found and removed, False otherwise.
     def remove(self, number):
         # Calls remove on searched key, returns false if key not found, and returns true and modifies the list if the key is found
-        return self.remove_at(self.find_equal_node(number))
+        return self.remove_at(self.find_equal_node(number, self.head))
     
     # Helper Functions
     
@@ -51,24 +51,23 @@ class SortedNumberList:
         # returns true as the node was found and removed
         return True
 
-    # Equal node finder helper function
+    # Recursive Equal node finder helper function
     # Returns the first equal node or None if nothing is found
-    def find_equal_node(self, key):
-        current_node = self.head
-        while(current_node != None and current_node.get_data() <= key):
+    def find_equal_node(self, key, current_node):
+        if (current_node != None and current_node.get_data() <= key):
             if current_node.get_data() == key:
                 return current_node
-            current_node = current_node.get_next()
+            return self.find_equal_node(current_node.get_next())
         return None
     
-    # Returns the last Node Smaller than a key value or None if none are smaller
-    def find_last_smaller(self, key):
-        current_node = self.head
-        smallest = None
-        while(current_node != None and current_node.get_data() < key):
-            smallest = current_node
-            current_node = current_node.get_next()
-        return smallest
+    # Recursive Last smaller node finder, returns None if none are smaller
+    def find_last_smaller(self, key, current_node):
+        if (current_node != None and current_node.get_data() < key):
+            next_nodes = self.find_last_smaller(key, current_node.get_next())
+            if(next_nodes == None):
+                return current_node
+            else:
+                return next_nodes
        
     # prepend helper function
     def prepend(self, new_node):

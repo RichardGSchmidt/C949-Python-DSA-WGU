@@ -9,7 +9,7 @@ class SortedNumberList:
     # Inserts the number into the list in the correct position such that the
     # list remains sorted in ascending order.
     def insert(self, number):
-        # Inserts a node with the value after the last smaller node, if there are no smaller nodes the insert function prepends the list
+        # Inserts a node with the value after the last smaller node, if no target can be found the insert function prepends the list
         self.insert_after(Node(number), self.find_last_smaller(number)) 
 
             
@@ -85,13 +85,8 @@ class SortedNumberList:
     # insert after helper function
     def insert_after(self, new_node, target_node):
         
-        # If the list is empty, add the new node
-        if self.head is None:
-            self.head = new_node
-            self.tail = new_node
-        
-        # If no target node is selected the list is prepended to account for calls where no smaller nodes are found
-        elif target_node is None:
+        # If no target node is specified the list is prepended, this covers both the case of the list being empty and the case that no nodes are smaller than the new node
+        if target_node is None:
             self.prepend(new_node)
             
         # if the target is the tail connect the node and make it the new tail
